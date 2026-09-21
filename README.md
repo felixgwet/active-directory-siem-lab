@@ -34,7 +34,7 @@ The environment was used to simulate real-world attack scenarios and develop Spl
 
 ## Architecture
 
-```javascript
+```
 ┌─────────────────────────────────────────────────────────────┐
 │                        HOST MACHINE                          │
 │                   (VirtualBox Hypervisor)                    │
@@ -108,9 +108,9 @@ The environment was used to simulate real-world attack scenarios and develop Spl
 - Configured DNS to point to LAB-SERVER for domain resolution
 - Installed Splunk Universal Forwarder
 - Configured `inputs.conf` to forward:
-- `WinEventLog://Security`
-- `WinEventLog://System`
-- `WinEventLog://Application`
+  - `WinEventLog://Security`
+  - `WinEventLog://System`
+  - `WinEventLog://Application`
 
 ### 4. Verification
 
@@ -127,7 +127,6 @@ The environment was used to simulate real-world attack scenarios and develop Spl
 **Objective:** Detect unauthorised additions to privileged Active Directory groups.
 
 **Method:**
-
 1. Opened Active Directory Users and Computers on LAB-SERVER
 2. Navigated to `gwetlab.local > IT > IT_Admins`
 3. Added `testuser` to the `IT_Admins` security group
@@ -141,7 +140,6 @@ The environment was used to simulate real-world attack scenarios and develop Spl
 **Objective:** Detect brute-force or password-spray attacks against domain accounts.
 
 **Method:**
-
 1. Enabled "Audit Logon Events > Failure" via Local Security Policy
 2. Locked LAB-CLIENT workstation (Win + L)
 3. Attempted 10 failed logins as `gwetlab.local\testuser` with incorrect passwords
@@ -157,7 +155,6 @@ The environment was used to simulate real-world attack scenarios and develop Spl
 **Description:** Alert when a user is added to a security-enabled group (e.g., Domain Admins, IT_Admins).
 
 **Splunk SPL:**
-
 ```spl
 index=* source="WinEventLog:Security" EventCode=4728
 | table _time, Account_Name, MemberName, ComputerName
@@ -173,7 +170,6 @@ index=* source="WinEventLog:Security" EventCode=4728
 **Description:** Detect multiple failed logon attempts for the same account within a short timeframe.
 
 **Splunk SPL:**
-
 ```spl
 index=* source="WinEventLog:Security" EventCode=4625
 | stats count by Account_Name, ComputerName
@@ -190,7 +186,6 @@ index=* source="WinEventLog:Security" EventCode=4625
 **Description:** Monitor overall security event volume from domain endpoints.
 
 **Splunk SPL:**
-
 ```spl
 index=* host=LAB-CLIENT
 | timechart span=1h count by source
