@@ -98,7 +98,7 @@ The environment was used to simulate real-world attack scenarios and develop Spl
 
 - Installed Splunk Enterprise on LAB-SERVER
 - Configured receiving port **9997** for Universal Forwarder data
-- Configured management port **8000** for web interface access
+- Configured web interface port **8000** for Splunk Web access
 - Enabled local Windows Event Log collection (Security, System, Application)
 
 ### 3. Client Deployment (LAB-CLIENT)
@@ -108,13 +108,13 @@ The environment was used to simulate real-world attack scenarios and develop Spl
 - Configured DNS to point to LAB-SERVER for domain resolution
 - Installed Splunk Universal Forwarder
 - Configured `inputs.conf` to forward:
-  - `WinEventLog://Security`
-  - `WinEventLog://System`
-  - `WinEventLog://Application`
+- `WinEventLog://Security`
+- `WinEventLog://System`
+- `WinEventLog://Application`
 
 ### 4. Verification
 
-- Confirmed 500+ Security events ingested into Splunk within first hour
+- Confirmed 521 Security events ingested into Splunk within first hour
 - Verified `host=LAB-CLIENT` field populated correctly in Splunk
 - Confirmed EventCode 4728 (privilege escalation) detection capability
 
@@ -200,13 +200,29 @@ index=* host=LAB-CLIENT
 
 ## Screenshots
 
-> Placeholder for lab evidence. Recommended screenshots to include:
+![Splunk Ingestion](screenshots/splunk_ingestion.png)
+*521 Security events ingested from LAB-CLIENT within the first hour of forwarder deployment*
 
-1. **Splunk Search Results** — `index=* host=LAB-CLIENT` showing ingested events
-2. **EventCode 4728 Detection** — Privilege escalation event details
-3. **Active Directory Structure** — OU hierarchy and group membership
-4. **Splunk Data Inputs** — Windows Event Log collection configuration
-5. **Network Diagram** — VirtualBox adapter settings
+![Lab Overview](screenshots/lab_overview.png)
+*End-to-end workflow: attack simulation on LAB-CLIENT (top) and corresponding Splunk ingestion on LAB-SERVER (bottom)*
+
+![EventCode 4625 Detection](screenshots/eventcode_4625_detection.png)
+*EventCode 4625 (failed logon) detected on LAB-SERVER, validating the brute-force detection rule*
+
+![Splunk Data Inputs](screenshots/splunk_data_inputs.png)
+*Splunk Enterprise configured to ingest local Windows Event Log channels from LAB-SERVER*
+
+![Domain Network Config](screenshots/domain_network_config.png)
+*LAB-CLIENT network adapters showing gwetlab.local domain suffix post-domain-join*
+
+![Forwarder Config](screenshots/forwarder_config.png)
+*Universal Forwarder outputs.conf configured to ship logs to LAB-SERVER:9997*
+
+![Server OS](screenshots/server_os.png)
+*LAB-SERVER running Windows Server 2025 Standard Evaluation*
+
+![Server Manager](screenshots/server_manager.png)
+*Server Manager confirming AD DS and DNS roles operational on LAB-SERVER*
 
 ---
 
@@ -248,8 +264,8 @@ index=* host=LAB-CLIENT
 
 ## Contact
 
-- **LinkedIn:** [Your LinkedIn URL]
-- **Email:** [Your Email]
+- **LinkedIn:** [https://www.linkedin.com/in/felix-g-383841318/](https://www.linkedin.com/in/felix-g-383841318/)
+- **Email:** felixdegwet@yahoo.co.uk
 - **Location:** London, UK
 
 ---
