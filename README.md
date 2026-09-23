@@ -259,7 +259,6 @@ index=* host=LAB-CLIENT
 
 ## Contact
 
-- **LinkedIn:** [https://www.linkedin.com/in/felix-g-383841318/](https://www.linkedin.com/in/felix-g-383841318/)
 - **Email:** felixdegwet@yahoo.co.uk
 - **Location:** London, UK
 
